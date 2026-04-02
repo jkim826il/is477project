@@ -1,6 +1,6 @@
 #### Overview
 
-Our overall goal of this project is two-fold: 1) Evaluate the role (if any) education plays on income, and 2) Evaluate the role (if any) race plays on either or both education and income. To accomplish this, we will use datasets from the United States Census Bureau, specifically data on household income and educational attainment. After evaluating and cleaning the data, we will use a mix of visualizations and numbers that we compute using the data to evaluate our two goals.
+Our overall goal of this project is two-fold: 1) Evaluate the role (if any) education plays on income, and 2) Evaluate the role the public/postsecondary school system plays on either or both education and income. To accomplish this, we will use datasets from the United States Census Bureau, specifically data on household income and educational attainment, as well as data from the National Center for Education Statistics. After evaluating and cleaning the data, we will use a mix of visualizations and numbers that we compute using the data to evaluate our two goals.
 
 #### Team
 
@@ -13,11 +13,11 @@ Juno and Abbie will meet regularly in-person throughout the project and before d
 #### Research or Business Question(s)
 
 - Are income and education positively correlated?
-- Does race have a significant impact on education and/or income?
+- Does the public/postsecondary school system impact on education and/or income?
 
 #### Datasets
 
-Our datasets are listed here: https://github.com/jkim826il/is477project/blob/a68b41ae434eb26c62efef9f659e41bad5e30e81/raw/links.md. We have a total of 20 datasets, 10 of which are for household income by state and the other 10 are for educational attainment by state. Each category of data is further subdivided by race. These datasets can be integrated together because each of the datasets have an identifier to the state to which the person resides. Each of these datasets allow us to answer a specific part of the research question that we are proposing. For our first goal, we can see the income and educational attainment differences between states and determine if there is a relationship between income and educational attainment. For our second goal, 9 of the 10 datasets for each category represents a specific race. We can see how race impacts income and educational attainment using those 18 datasets.
+We will use the United States Census API to retrieve income and educational attainment data for each “Core Based Statistical Area” (CBSA). We will use the American Community Survey data from 2024, the most recent. We will also use this dataset (https://nces.ed.gov/programs/edge/Geographic/SchoolLocations) from the National Center for Education Statistics, which lists the geographic locations of public and postsecondary schools in the United States. We will use the data from 2024-25, the most recent data available. One of the included columns in the public/postsecondary school dataset is the CBSA code, which we will use to join these two datasets together. This will allow us to link the schools in each CBSA from the public/postsecondary school dataset with the income and educational attainment we retrieve from the Census data.
 
 #### Timeline
 Week 1 Tasks (3/9-14):
@@ -68,13 +68,11 @@ Week 7 Tasks (4/27-5/1)
 
 
 #### Constraints
-This dataset is limited because the data is subdivided into states. It does not take into account specific geographic areas within states, which may have drastic income and educational attainment differences. Even within the same Illinois county, there can be dramatic differences in income based on ZIP code. Unfortunately, we do not have access to the ZIP code, only the state.
-
-The income data is also not exact. It gives us a range where a specific household’s income is, but not the exact amount. This makes certain techniques, such as linear regression, difficult because each of the possible values are technically categorical, not numerical.
+Because we are using data at the CBSA level, there are certain geographic locations that we may not be including in our analysis. Of note, each CBSA must have a population of at least 10,000. As a result, there are certain areas in the United States that are not in a CBSA. Because of this, there are sections of the rural population that we are not including in this analysis. The reason we decided to use CBSA instead of potentially other geographic options (such as county, city, etc.) is because we wanted to avoid situations where we have limited or no data for a certain geographic area. Using CBSA as our geographic region size allows us to increase our odds that there will be sufficient data in each geographic area that we are analyzing.
 
 The data collected is based on a small sample of the United States population. This sample is likely smaller than one during a decennial census. This data is from 2024, which is not a year that the census takes place. As a result, the data is subject to sampling variability. It is also possible that this sample does not accurately reflect the population that it claims to represent, despite best efforts by the Census Bureau.
 
-The data is also self-reported. As a result, it is subject to reporting errors. This is particularly an issue when the individuals are self-reporting their race/ethnicity. The Census Bureau categorizes Hispanic/Latino as an ethnicity, not a race, and it is possible that some data (particularly the data for White Alone) may encompass people that some people may not classify as “White.”
+The data is also self-reported. As a result, it is subject to reporting errors. This issue can arise when households are reporting their income, as some may either intentionally or unintentionally misreport their household income. Others may misrepresent their educational attainment.
 
 
 #### Gaps
