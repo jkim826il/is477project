@@ -28,7 +28,7 @@ Week 1 Tasks (3/9-14):
 - Create Project Plan: due 3/10 at 11:59pm
   - Juno and Abbie
 
-Week 2 Tasks (3/23-27):
+Week 2 Tasks (3/23-4/6):
 - Review legal and ethical constraints: evaluate data licenses, copyright restrictions, privacy concerns, and terms of use; document how they will be followed
   - Abbie
 - Collect and acquire datasets: download the datasets and store the original datasets in the project repository 
@@ -42,11 +42,11 @@ Prepare data integration workflow: develop scripts using Python/Pandas or SQL to
 - Perform data cleaning: apply cleaning methods to handle missing values, inconsistent formatting, removing duplicates, and fixing other errors
   - Juno and Abbie
 
-Week 3 Tasks (3/30-4/3):
+Week 3 Tasks (4/6-4/7):
 - Write Interim Status Report: prepare a 1000-1500 word report describing the project scope, datasets, storage strategy, ethical considerations, data acquisition, integration process, and preliminary findings; due 3/31 at 11:59pm
   - Juno and Abbie
 
-Week 4 Tasks (4/6-10):
+Week 4 Tasks (4/8-10):
 - Develop automated workflow: implement an automated end-to-end workflow that executes the complete code including dataset acquisition, cleaning, integration, and analysis
   - Juno
 - Ensure reproducibility: document all necessary key information and provide instructions for running the workflow in the README file
