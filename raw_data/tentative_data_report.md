@@ -14,4 +14,4 @@
 
 #### Census Data
 
-- Does not appear to have missing values.
+- Does not appear to have missing values. I will do a more detailed check before merging the datasets.
