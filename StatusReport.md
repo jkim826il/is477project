@@ -16,7 +16,7 @@ I have not started the Data Cleaning process yet because I wanted to spend more 
 
 
 
-### Changes to Our Plan
+### Changes to Our Plan:
 
 We did not make changes to the plan after resubmitting our plan on April 2nd. We needed to update our timeline slightly, and that is listed below.
 
