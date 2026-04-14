@@ -13,8 +13,9 @@ In the school data, I plan on removing data unnecessary for our analysis. This i
 I have not started the Data Cleaning process yet because I wanted to spend more time analyzing the Data Quality before continuing. Since I have not cleaned the data yet, I also was not able to start the data integration workflow, since that requires joining on CBSA, and the CBSA column in the school data has missing values. These tasks will be pushed into the Week 3 and Week 4 tasks.
 
 ### Abbie's Work So Far:
+For our project so far, I have created the timeline and updated it after responding to the feedback from last week. Feedback was given about our choice of datasets and the variables included, creating a challenge that we had to face. It was pointed out that the census directories did not count as two datasets and we were given a warning about the variables chosen to use in our analysis. Because of this feedback, I discussed with Juno the possibility of changing the datasets and removing the race variable while including the location variable. We then implemented the feedback, after finding another dataset, and resubmitted to get full credit for the Course Project Plan.
 
-
+I have been going over the Census bureau documentation of the datasets and have been exploring the legal and ethical constraints of the data licenses and other restrictions stated in the terms of use. A lot of our joint work has been pushed back due to the feedback given and the complexity of the datasets.
 
 ### Changes to Our Plan:
 
