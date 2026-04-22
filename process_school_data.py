@@ -13,6 +13,17 @@ postsecondary = postsecondary[(postsecondary["CBSA"] != "N") & (postsecondary["C
 public_schools = public_schools.drop(columns=["CSA", "NMCSA", "SCHOOLYEAR"])
 postsecondary = postsecondary.drop(columns=["CSA", "NMCSA", "SCHOOLYEAR"])
 
+# Drop the "LEAID" column in public_schools since this data is contained in the "NCESSCH" column; 
+# Drop the "OPSTFIPS" column in public_schools since this data is not relevant to our analysis
+# and causes issues during integration
+
+public_schools = public_schools.drop(columns=["LEAID", "OPSTFIPS"])
+
+# Rename "NCESSCH" and "UNITID" to "ID" for simplicity
+
+public_schools = public_schools.rename(columns={"NCESSCH" : "ID"})
+postsecondary = postsecondary.rename(columns={"UNITID" : "ID"})
+
 # Save files in processed_data directory
 
 public_schools.to_csv("./processed_data/public_schools_cleaned.csv", index=False)
