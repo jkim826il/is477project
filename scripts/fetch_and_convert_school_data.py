@@ -27,8 +27,8 @@ with ZipFile("./raw_data/postsecondary_schools.zip", "r") as z2:
 
 # 4) Convert the .xlsx files to .csv files
 print("Start Stage 4")
-public_schools = pd.read_excel("./raw_data/EDGE_GEOCODE_PUBLICSCH_2425.xlsx")
-postsecondary_schools = pd.read_excel("./raw_data/EDGE_GEOCODE_POSTSECSCH_2425.xlsx")
+public_schools = pd.read_excel("./raw_data/EDGE_GEOCODE_PUBLICSCH_2425.xlsx", engine="openpyxl")
+postsecondary_schools = pd.read_excel("./raw_data/EDGE_GEOCODE_POSTSECSCH_2425.xlsx", engine="openpyxl")
 
 public_schools.to_csv("./raw_data/public_schools.csv", index=False)
 postsecondary_schools.to_csv("./raw_data/postsecondary_schools.csv", index=False)

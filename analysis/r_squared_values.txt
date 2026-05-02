@@ -1,0 +1,8 @@
+R^2 values for various models:
+Full Model: 0.5106545667900412
+Educational Attainment Only: 0.4716768133536374
+Educational Attainment, Greater than High School (or equivalent): 0.4695719543617476
+Educational Attainment, Bachelor's or Greater: 0.4694504938715488
+High School, GED, Associate's, or Bachelor's Only: 0.43681112825802937
+Above Model + Schools per Population Data Added: 0.4785771950320965
+Schools per Population Only: 0.05912518697370095
