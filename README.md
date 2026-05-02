@@ -38,7 +38,7 @@ To run all of the data collection, cleaning, integration, and analysis, you will
 
 #### Running Our Scripts
 
-- Request an API Key from the (U.S. Census website)[https://api.census.gov/data/key_signup.html].
+- Request an API Key from the [U.S. Census website](https://api.census.gov/data/key_signup.html).
 - Create a new directory called "private" from the root of the project. Inside that directory, create a text file named `api_key.txt`. Copy and paste the API Key that you receive into the .txt file.
 - Open a terminal window. Navigate to the root of the project. Run the command `snakemake --cores 1`. This should run all of the scripts.
     - If the integrity check fails (it should fail with an `AssertionError`), then run the command `snakemake --cores 1 --delete-all-output`. After that, run `snakemake --cores 1` again.
