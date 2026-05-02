@@ -39,8 +39,11 @@ To run all of the data collection, cleaning, integration, and analysis, you will
 #### Running Our Scripts
 
 - Request an API Key from the [U.S. Census website](https://api.census.gov/data/key_signup.html).
-- Create a new directory called "private" from the root of the project. Inside that directory, create a text file named `api_key.txt`. Copy and paste the API Key that you receive into the .txt file.
+- Create a new directory called "private" from the root of the project. Inside that directory, create a text file named `api_key.txt`. Copy and paste the API Key that you receive into the .txt file. 
+- After the above step, this is what the project directory should look like:
+![](/markdown_assets/project_directory.png)
 - Open a terminal window. Navigate to the root of the project. Run the command `snakemake --cores 1`. This should run all of the scripts.
     - If the integrity check fails (it should fail with an `AssertionError`), then run the command `snakemake --cores 1 --delete-all-output`. After that, run `snakemake --cores 1` again.
+- **NOTE:** Depending on the system, the $R^2$ values in `r_squared_values.txt` may round or not round the least significant digit. This does not impact any other part of data cleaning/integration/analysis; it only affects this one .txt file. This also does not change the conclusion of our analysis. This is likely happening because we do not have a centralized development environment through something like a Docker container.
 
 ## References
