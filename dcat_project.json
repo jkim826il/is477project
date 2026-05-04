@@ -1,0 +1,51 @@
+{
+    "@type": "dcat:Catalog",
+    "accessLevel": "public",
+    "contactPoint": [
+        {
+            "@type": "vcard:Contact",
+            "fn": "Juno Kim",
+            "hasEmail": "mailto:jkim826@illinois.edu"
+        },
+        {
+            "@type": "vcard:Contact",
+            "fn": "Abbie Long",
+            "hasEmail": "mailto:abbiel2@illinois.edu"
+        }
+    ],
+    "description": "This project explores whether or not median household income has an association with educational attainment and the number of schools in an area.",
+    "keyword":
+    [
+        "education",
+        "educational attainment",
+        "median income",
+        "income"
+    ],
+    "dcat:Dataset": [
+        {
+            "@type": "dcat:Dataset",
+            "@id": "https://api.census.gov/data/2024/acs/acs5",
+            "title": "American Community Survey 2024",
+            "description": "Provides information about social, economic, housing, demographic, etc. about the United States Population."
+        },
+        {
+            "@type": "dcat:Dataset",
+            "@id": "https://nces.ed.gov/programs/edge/data/EDGE_GEOCODE_PUBLICSCH_2425.zip",
+            "title": "Public School File: 2024-25",
+            "description": "List of every public school in the United States recognized by the U.S. Education Department"
+        },
+        {
+            "@type": "dcat:Dataset",
+            "@id": "https://nces.ed.gov/programs/edge/data/EDGE_GEOCODE_POSTSECSCH_2425.zip",
+            "title": "Postsecondary School File: 2024-25",
+            "description": "List of every postsecondary school in the United States recognized by the U.S. Education Department"
+        }
+    ],
+    "publisher":
+    {
+        "@type": "org:Organization",
+        "name": "illinois.edu"
+    },
+    "issued": "2026-05-06",
+    "title": "To what extent does education impact median household income?"
+}
