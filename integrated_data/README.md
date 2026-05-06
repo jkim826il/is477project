@@ -1,6 +1,6 @@
 ## Integrated Data Directory
 
-This directory contains 1 file: `integrated.csv`, which was generated from `/scripts/integrate_data.py`. Here is metadata for the file:
+This directory contains 1 file: `integrated.csv`, which was generated from `/scripts/integrate_data.py`. See the [data codebook](../data_codebook.pdf) for the full metadata for the .csv file. Here is a quick summary of the metadata for the file:
 
 `name`: The Name of the Core-Based Statistical Area (CBSA)
 
