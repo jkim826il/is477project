@@ -16,11 +16,11 @@ This directory contains all of the unclean, raw data that we collect. Here is wh
 
 `public_schools.csv`: Converted .csv file from `EDGE_GEOCODE_PUBLICSCH_2425.xlsx`.
 
-`census_data.sha`: SHA-256 hash of `census_data.csv`. This is the hash value that is compared against when running the `check_integrity.py` script.
+`census_data.sha`: The correct value of the SHA-256 hash of `census_data.csv`. This is the hash value that the downloaded data is compared against when running the `check_integrity.py` script.
 
-`public_schools.sha`: SHA-256 hash of `public_schools.csv`. This is the hash value that is compared against when running the `check_integrity.py` script.
+`public_schools.sha`: The correct value of the SHA-256 hash of `public_schools.csv`. This is the hash value that the downloaded data is compared against when running the `check_integrity.py` script.
 
-`postsecondary_schools.sha`: SHA-256 hash of `postsecondary_schools.csv`. This is the hash value that is compared against when running the `check_integrity.py` script.
+`postsecondary_schools.sha`: The correct value of the SHA-256 hash of `postsecondary_schools.csv`. This is the hash value that the downloaded data is compared against when running the `check_integrity.py` script.
 
 `data_quality_report.ipynb`: The code we used to analyze data quality.
 
