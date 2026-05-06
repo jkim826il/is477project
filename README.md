@@ -21,20 +21,20 @@ Overall, the project found that education and income are related, but the relati
 
 ## Data Profile
 
-'census_data.csv': Contains all of the census data we collect from fetch_census_data.py.
+`census_data.csv: Contains all of the census data we collect from fetch_census_data.py.
 	
-The 'census_data.csv' file contains all of the census data and has 936 rows and 12 columns. It contains data from different cities around the U.S. and has information pertaining to median income, population, and how many people there are with different degrees of education (e.g., high school, bachelors, masters, doctorate, etc.). This file is located in the raw_data folder in the project repository and a cleaned version can be found in the processed_data folder.
+The `census_data.csv` file contains all of the census data and has 936 rows and 12 columns. It contains data from different cities around the U.S. and has information pertaining to median income, population, and how many people there are with different degrees of education (e.g., high school, bachelors, masters, doctorate, etc.). This file is located in the raw_data folder in the project repository and a cleaned version can be found in the processed_data folder.
 
 The dataset was obtained from the U.S. Census Bureau and all of their legal terms and conditions are stated on their website. It states that users of the data are not to use the data “to identify any individual person, household, business or other entity” or combine the data to achieve any of the previously stated goals. The Bureau also states that the user of the information “may not modify or falsely represent content accessed through the API and still claim the source is the Census Bureau.”
 
 The dataset relates to our question about how education relates to income because the dataset provides samples from various cities across the U.S. about the number of people with degrees of higher education as well as the city’s median income.
 
-'postsecondary_schools.csv': Converted .csv file from EDGE_GEOCODE_POSTSECSCH_2425.xlsx.
+`postsecondary_schools.csv`: Converted .csv file from EDGE_GEOCODE_POSTSECSCH_2425.xlsx.
 
 This CSV file contains 21 columns and 6606 rows. Each row represents a sample from a post-secondary school lists the following attributes of each observation: school identification number, name of institution, reported street address, reported city, reported state, reported ZIP code, state FIPS, county FIPS, county name, locale code, latitude of school location, longitude of school location, core based statistical area, core based statistical area name, metropolitan or micropolitan statistical area indicator, combined statistical area, combined statistical area name, congressional district, state legislative district - lower, state legislative district - upper, and school year. This file is located in the raw_data folder in the project repository and a cleaned version can be found in the processed_data folder.
 This dataset was retrieved from the National Center for Education Statistics, an official website of the U.S. government. We could not find information on the website about any legal constraints the dataset may have. The dataset relates to the questions because it contains information about post-secondary schools and other attributes that they have that could help with education demographic and geographic estimates.
 
-'public_schools.csv': Converted .csv file from EDGE_GEOCODE_PUBLICSCH_2425.xlsx.
+`public_schools.csv`: Converted .csv file from EDGE_GEOCODE_PUBLICSCH_2425.xlsx.
 
 This CSV file contains 23 columns and 102,179 rows in the dataset. Each row contains information about a public school in the U.S. and has the following attributes: school identification number, school district identification number, name of institution, FIPS state code for operating state, reported location street address, reported location city, reported location state, reported location ZIP code, state FIPS, county FIPS, county name, locale code, latitude of school location, longitude of school location, core based statistical area, core based statistical area name, metropolitan or micropolitan statistical area indicator, combined statistical area, combined statistical area name, congressional district, state legislative district - lower, state legislative district - upper, and school year. This file is located in the raw_data folder in the project repository and a cleaned version can be found in the processed_data folder.
 
