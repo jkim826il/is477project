@@ -22,4 +22,6 @@ This directory contains all of the unclean, raw data that we collect. Here is wh
 
 `postsecondary_schools.sha`: SHA-256 hash of `postsecondary_schools.csv`. This is the hash value that is compared against when running the `check_integrity.py` script.
 
+`data_quality_report.ipynb`: The code we used to analyze data quality.
+
 See the [data codebook](../data_codebook.pdf) for the metadata for the three .csv files.
