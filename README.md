@@ -46,9 +46,57 @@ This dataset was retrieved from the National Center for Education Statistics, an
 
 ## Findings
 
+Before running any of the analysis, we first plotted every variable with every other variable (we will refer to this plot as a pairplot for the remainder of this section). This is the result:
+
+From the plot, we can see that median income does not appear to have a strong relationship with any of the other variables (we can see this from the first row). However, we can see that all of the “post-bachelors” variables (5th row, columns 6-8) have a strong relationship with each other. This indicates potential multicollinearity issues if we use all 9 of the potential explanatory variables in a linear regression model. Out of 4 explanatory variables that are “post-bachelor,” we will likely need to drop 3 of them to mitigate the effect of multicollinearity.
+
+We will plot linear regression models to answer our research question. First, a design decision that we made: We did not split the data into training/validation/test datasets or use cross-validation. This is because we do not intend to use this model to make predictions on unseen data; we just want to see the extent of the linear relationship. All of our models use `median_income` as our response variable. We will also round all R^2 values to 3 decimal places. We list more decimal places in /analysis/r_squared_values.txt.
+
+The first model we fit is the model with all potential explanatory variables. After fitting this model, we found that the R^2 value is 0.511. This means that about 51.1% of the response variability is explained by the model. This is not particularly good, and it indicates that educational attainment and the number of schools in an area are not great predictors of income.
+
+The second model we fit was with only the variables relating to educational attainment. This resulted in an R^2 value of 0.472.
+
+The third model we fit has the same variables as the second model but with the high school diploma and GED variables removed. This decreased the R^2 value slightly to 0.470.
+
+The fourth model we fit is the same model as the third model but with the Associate’s degree variable removed. This decreased the R^2 slightly to 0.469.
+
+The fifth model we fit is an attempt to reduce the potential multicollinearity issues that were highlighted in the pairplot. This model only has the High School, GED, Associate’s, and Bachelor’s degree variables only. This had the lowest R^2 value of the models we tested at 0.437.
+
+The sixth model is the same as the fifth model, but with the schools per population variables added. This increased our R^2 value to 0.479. This indicates that the schools per population data actually does add some information to our model.
+
+The seventh model is the model with the schools per population data exclusively. This had the lowest R^2 value of 0.059.
+
+These results show us that the majority of the response variability of our response variable `median_income` is explained by the educational attainment variables. We can see from our seventh model that the R^2 is by far the lowest with only the schools per population data. That said, the schools per population variables do add some information to our model, as removing them immediately dropped the R^2 value.
+
+If we zoom out, however, we can see that the association between median income and educational attainment is pretty low. While schools per population does impact the relationship between median income and educational attainment, it is only by a small amount. As a result, we conclude that the association between median income and educational attainment is not strong, and while the number of schools per population does impact this relationship, it is not in a very meaningful way.
+
 ## Future Work
 
+There are a few things we feel that we can work on in the future.
+
+A potential task for the future is to work on validating semantic accuracy. In the Census data, we did not think that there would be another dataset that we felt we could accurately compare values with. That said, if we potentially do more research, it is possible that we can find a dataset that is something we can validate against. We could also use census data from previous years (such as 2023) and see if the changes that we see in the data points are reasonable given past trends. This is difficult to do, but it is something that could theoretically be done if we wanted to seriously evaluate the semantic accuracy of data in the census data.
+
+In the school datasets, something we could do is to validate whether or not the CBSA codes for each school are correct. For each school, we could look online to find their addresses (or maybe such a dataset exists) and verify whether or not that address corresponds to that specific CBSA. This would also solve the issue of having missing or syntactic accuracy issues with the address column, since we would be looking up the address of every school in our dataset. Similar to the previous task with the census data, this would be very difficult and time consuming to do, but if accuracy was of significant importance, this is something that could be important.
+
+Another task we could work on is providing a containerized environment (using Docker or something similar). As we will mention in the “Challenges” section, we had a lot of issues with getting our development environment set up and working. This was due to the fact that our systems had multiple versions of Python installed and different packages installed on different versions or even different Python environments. We also had some issues with rounding when outputting to a text file. A containerized environment would have solved a lot of these issues. This would also make it easier for anyone new that decides to run our analysis, as the container would have the correct version of Python and the packages needed to run our code already installed and ready to go, which reduces the headache that comes with software installation.
+
+Another task that we could work on has to do with our analysis. In the future, we could use a different type of model (other than the linear regression models we used) to analyze the relationship between median household income and education. For example, what results would we end up with if we used a Linear SVM? What patterns could we have seen if we used clustering (such as k-means clustering)? We also could have used different linear model selection techniques, such as backwards elimination, forward selection, and stepwise selection, which would have allowed us to potentially end up with models that are not only more “performative” but also more interpretable. We also could have used regularization techniques, such as LASSO, ridge, and elastic net regression to also determine if we could find a better model than the seven models that we ended up using.
+
 ## Challenges
+
+The biggest challenges that we dealt with were getting our workflow to work correctly, reproducibility, and getting our Python environment to work correctly.
+
+Originally, we installed Snakemake using the recommended way listed on [Snakemake’s documentation](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html). The issue with this was that Pixi would create its own Python environment and not use the environment that we had set as the default on our system. As a result, sections of our scripts would not run correctly, often citing missing dependencies (specifically the Openpyxl dependency).
+
+Adding to this problem was the fact that we had multiple versions of Python installed on our systems. Juno, for example, had both a Global Python installation and an installation through Conda (this is likely a remnant of how we installed Python in STAT 207). As a result, different dependencies were installed on different installations. This made running our scripts complicated, as sometimes the execution of our code would fail even though we had installed the Python packages beforehand. This made verifying reproducibility very difficult. Another weird behavior that Juno noticed was that the pip package manager would install dependencies to the Conda environment, even when Global Python was installed on the system and the Conda environment wasn’t active. The workaround that we ended up using was to uninstall all Python installations on our system (Conda, Pixi, etc.) and just install Global Python only.
+
+We also installed Snakemake through pip instead of Pixi or Conda, which ensured that our scripts would run in the correct Python environment.
+
+Another challenge we encountered was reproducibility in general. While issues with Snakemake and Python did contribute to this, we also experienced other challenges in this area. Since we chose not to use a containerized environment, we had to pay careful attention to how we set up our development environment. Since we did not document the steps we took to set up our environment as we went, to write the reproducibility section we needed a way to start over and install everything again to record the steps. The way Juno went about doing this was to create a brand new Windows 11 virtual machine. This allowed us to document each of the software installation steps from scratch. That said, the VM was understandably very slow to set up and use, which added considerable time to the project. Juno spent a significant amount of time just getting Windows 11 to install.
+
+Due to the amount of additional time it took to set up and run the VM, we realized later that it may have been easier (or at the very least more productive from a reproducibility perspective) to set up a containerized environment instead of going out of our way to set up a brand new Windows 11 VM.
+
+We also realized that, depending on the system, Python may or may not round the last (least significant) digit when displaying/printing floating-point values. There is no clear workaround for this, as this depends on the system that you are working on. Setting up a containerized environment would have prevented issues like this from arising, but by the time we realized this we did not have enough time to go back and change it.
 
 ## Reproducibility
 
@@ -79,3 +127,9 @@ To run all of the data collection, cleaning, integration, and analysis, you will
 - **NOTE:** Depending on the system, the $R^2$ values in `r_squared_values.txt` may round or not round the least significant digit. This does not impact any other part of data cleaning/integration/analysis; it only affects this one .txt file. This also does not change the conclusion of our analysis. This is likely happening because we do not have a centralized development environment through something like a Docker container.
 
 ## References
+
+National Center for Education Statistics. (2024). 2024–25 public school file [Data set]. Education Demographic and Geographic Estimates (EDGE). https://nces.ed.gov/programs/edge/Geographic/SchoolLocations
+
+National Center for Education Statistics. (2024). 2024–25 postsecondary school file [Data set]. Education Demographic and Geographic Estimates (EDGE). https://nces.ed.gov/programs/edge/Geographic/SchoolLocations
+
+U.S. Census Bureau. (2026, April 14). Terms of service: Census Bureau Application Programming Interface. U.S. Department of Commerce. https://www.census.gov/data/developers/about/terms-of-service.html
