@@ -21,7 +21,7 @@ Overall, the project found that education and income are related, but the relati
 
 ## Data Profile
 
-`census_data.csv: Contains all of the census data we collect from fetch_census_data.py.
+`census_data.csv`: Contains all of the census data we collect from fetch_census_data.py.
 	
 The `census_data.csv` file contains all of the census data and has 936 rows and 12 columns. It contains data from different cities around the U.S. and has information pertaining to median income, population, and how many people there are with different degrees of education (e.g., high school, bachelors, masters, doctorate, etc.). This file is located in the raw_data folder in the project repository and a cleaned version can be found in the processed_data folder.
 
