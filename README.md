@@ -1,4 +1,4 @@
-## Title: To what extent does education impact median household income?
+## To what extent does education impact median household income?
 
 ## Contributors
 
@@ -42,11 +42,148 @@ This dataset was retrieved from the National Center for Education Statistics, an
 
 ## Data Quality
 
+How we went about evaluating data quality is located in [data_quality_report.ipynb](/raw_data/data_quality_report.ipynb). The following is a summary of that file as well as some basic analysis we did in OpenRefine. Since we did not clean the data using OpenRefine, we do not have an OpenRefine edit history file.
+
+### Dataset 1: [Census Data](/raw_data/census_data.csv)
+
+#### Completeness
+
+The census data does not have missing values. This is for several reasons. When we fetch the American Community Survey data from the U.S. Census API, we check for the Census’s explicit missing values. Those missing values are:
+
+```
+NULL_VALS = {"-666666666", "-888888888", "-999999999"} # Null values for Census Data
+```
+
+When we are looping through each of the observations, we check if these “null” values are present and replace them with `None`. When we put this in a DataFrame later (like we do in the report), we should see an NaN value present (which is indicated by the data type of each row). However, as we can see in the full report, the data types do not indicate that a NaN value is present. In cases like this, we should see the data type be either “object” or “float64”, but instead we see “str” and “int64”. This indicates that there are no missing values.
+
+While there are no missing values in the dataset, this data is not necessarily complete. This dataset only contains data for Micro/Metro areas that are a part of a CBSA. This dataset excludes rural and sparsely populated areas because they do not have a large enough population to be a part of a CBSA. As a result, this dataset is not complete in the sense that it is representative of the entire U.S. population.
+
+#### Accuracy
+
+We check for syntactic accuracy issues, particularly with the `names` column. We did not see any syntactic accuracy issues. All of the names of the CBSAs have consistent formatting.
+
+Semantic accuracy is difficult to check as there is not another authoritative source to compare this dataset against. If we wanted to check semantic accuracy, we would just be querying the Census data again. We could compare it to previous years’ data, but it is possible that CBSAs have changed since then. Population also fluctuates over time (it does not necessarily always increase/decrease).
+
+#### Consistency
+
+There are 2 rules that needs to be satisfied:
+1. `population_25_plus` must be greater than or equal to the sum of `hs_diploma`, `ged`, `associates`, `bachelors`, `masters`, `professional`, and `doctorate`.
+2. `total_population` must be greater than or equal to `population_25_plus`.
+
+Both of these rules are satisfied.
+
+#### Timeliness
+
+This specific dataset will not change over time. We are using the 2024 American Community Survey data from the Census, which once it is published will not change. The values that we see now should be the same even into the future.
+
+This dataset should be appropriate to use. This data is from the most recent published American Community Survey as of April 2026. It should remain appropriate to use for about the next year or until the next American Community Survey is published.
+
+### Dataset 2: [Public School Data](/raw_data/public_schools.csv)
+
+#### Completeness
+
+This dataset does have missing values. Missing data is indicated with either an “M” or an “N” in the respective column.
+
+Specifically in reference to the `CBSA` column, any school that is missing a CBSA has an “N” in the `CBSA` column. This most likely indicates that the public school in question is not in a CBSA. For example, Andalusia High School is located in Andalusia, AL, which is located in Covington County, which is not in a CBSA. Ideally we should be more thorough and check every single entry, but doing so would require much more data (for example, every single city/county in every state) and is likely not feasible given the timeline of the project. This will be considered for future work.
+
+#### Accuracy
+
+This dataset suffers from both syntactic and semantic errors.
+
+We can see that there is inconsistent capitalization and formatting in both the `CITY` and `STREET` columns. Sometimes, city names are capitalized, but other times they are not. "Road" is sometimes written "RD" or "Rd." depending on the entry. These contribute to syntactic errors.
+
+The `STREET` column also suffers from semantic accuracy. For example, 13 public schools have their street address as simply "Main St" with no building number. This is a semantic error, as a school building should have a building number. We can also see that some schools also have multiple building numbers (for example, "9 1 and 12A").
+
+While we can fix the syntactic errors, we do not see a way to fix the semantic errors in a timely manner, if at all. The address data of each school cannot be easily found without scraping websites of schools or asking the schools themselves.
+
+#### Consistency
+
+A rule that must be satisfied is that each CBSA code should match exactly 1 NMCBSA (name of CBSA). This rule is satisfied by all observations. While we can check the `CSA` and `NMCSA` columns, we will remove these columns when we clean the data as we do not need these columns in our analysis.
+
+#### Timeliness
+
+This particular dataset will not change over time. We are using the 2024-25 school location data from the Education Department, which should not change after the data is published. The data we see now should be the same into the future.
+
+This data is from the 2024-25 school year, the most recent data available as of April 2026. This data should be suitable to use until the 2025-26 school year data is published by the Education Department.
+
+### Dataset 3: [Postsecondary School Data](/raw_data/postsecondary_schools.csv)
+#### Completeness
+
+This dataset does have missing values. Missing data is indicated with either an “M” or an “N” in the respective column.
+
+Specifically in reference to the `CBSA` column, any school that is missing a CBSA has an “N” in the `CBSA` column. This most likely indicates that the postsecondary school in question is not in a CBSA. For example, the University of West Alabama is located in Andalusia, AL, which is located in Covington County, which is not in a CBSA. Ideally we should be more thorough and check every single entry, but doing so would require much more data (for example, every single city/county in every state) and is likely not feasible given the timeline of the project. This will be considered for future work.
+
+#### Accuracy
+
+This dataset suffers from both syntactic and semantic errors.
+
+We can see that there is inconsistent capitalization in the `CITY` names. One entry in particular is all upper-case, while the other ones are title-cased.
+
+The one upper-case entry is also named "SOUTHFILED USA," which is very likely not the name of a city. Even if we removed the "USA" part, "SOUTHFILED" is also probably not the name of a city (even if "Southfield" would be).
+
+We can likely fix the syntactic errors, but the semantic errors will require a bit more care to fix. We would need to verify and consult multiple sources to verify the facts for those semantic errors.
+
+#### Consistency
+
+A rule that must be satisfied is that each CBSA code should match exactly 1 NMCBSA (name of CBSA). This rule is satisfied by all observations. While we can check the `CSA` and `NMCSA` columns, we will remove these columns when we clean the data as we do not need these columns in our analysis.
+
+#### Timeliness
+
+This particular dataset will not change over time. We are using the 2024-25 school location data from the Education Department, which should not change after the data is published. The data we see now should be the same into the future.
+
+This data is from the 2024-25 school year, the most recent data available as of April 2026. This data should be suitable to use until the 2025-26 school year data is published by the Education Department.
+
 ## Data Cleaning
+
+### Dataset 1: [Census Data](/raw_data/census_data.csv)
+
+As noted in the Data Quality section, this dataset did not suffer from missing data. As a result, we did not need to clean this dataset and left it as is.
+
+As mentioned in the Data Quality section, ideally we should also check for semantic accuracy with another dataset, but we did not feel that there was another dataset we could do that with. As a result, there was also no semantic cleaning.
+
+*Note: the dataset [census_data_cleaned.csv](/processed_data/census_data_cleaned.csv) is exactly the same as [census_data.csv](/raw_data/census_data.csv).*
+
+### Dataset 2: [Public School Data](/raw_data/public_schools.csv)
+
+There are a few things we decided to do with this dataset:
+
+We decided to drop any observations that had an “M” or an “N” in the `CBSA` column. The reason we did this is because we were fairly confident that any public school that had an “N” in the `CBSA` column did not belong to a CBSA. Dropping any observations with a “missing” CBSA minimizes the potential issues that may arise when we are integrating the datasets.
+
+We also decided to drop a few columns that we felt were not relevant to our analysis: `CSA`, `NMCSA`, and `SCHOOLYEAR`. We are using CBSA (and not CSA) as our region of choice, so having this column is unnecessary and may cause confusion since CBSA and CSA have very similar acronyms. `SCHOOLYEAR` is also a redundant column to have, since the dataset is from 2024-25, and every `SCHOOLYEAR` value was the same.
+
+We also decided to drop columns that caused issues during integration. We decided to drop the `LEAID` and `OPSTFIPS` columns. The `LEAID` column is contained within the `NCESSCH` column (the LEAID is the first six digits of the `NCESSCH`, as noted in the [documentation](https://nces.ed.gov/programs/edge/docs/EDGE_GEOCODE_PUBLIC_TECHDOC.pdf)). The `OPSTFIPS` column is also not necessary in our analysis because we are just focusing on the number of schools located within a CBSA. We found that this column was causing issues during integration, so we decided to drop it.
+
+We also decided to rename the `NCESSCH` column to `ID`, as each `NCESSCH` uniquely identifies each school. This also reduced issues during integration.
+
+We did not drop rows with missing values that are in columns other than `CBSA`. We did this because we wanted to preserve as much of the original data as possible. Additionally, the only column that we really care about is `CBSA`, so as long as the `CBSA` data was available, we felt okay leaving other missing values in.
+
+### Dataset 3: [Postsecondary School Data](/raw_data/postsecondary_schools.csv)
+
+There are a few things we decided to do with this dataset:
+
+We decided to drop any observations that had an “M” or an “N” in the `CBSA` column. The reason we did this is because we were fairly confident that any public school that had an “N” in the `CBSA` column did not belong to a CBSA. Dropping any observations with a “missing” CBSA minimizes the potential issues that may arise when we are integrating the datasets.
+
+We also decided to drop a few columns that we felt were not relevant to our analysis: `CSA`, `NMCSA`, and `SCHOOLYEAR`. We are using CBSA (and not CSA) as our region of choice, so having this column is unnecessary and may cause confusion since CBSA and CSA have very similar acronyms. `SCHOOLYEAR` is also a redundant column to have, since the dataset is from 2024-25, and every `SCHOOLYEAR` value was the same.
+
+We also decided to rename the `UNITID` column to `ID`, as each `UNITID` uniquely identifies each school. This reduced issues during integration.
+
+We did not drop rows with missing values that are in columns other than `CBSA`. We did this because we wanted to preserve as much of the original data as possible. Additionally, the only column that we really care about is `CBSA`, so as long as the `CBSA` data was available, we felt okay leaving other missing values in.
+
+## Data Integration
+
+We first vertically stacked the postsecondary school and public school data on top of each other.
+
+We went about integrating our data by performing a join on the CBSA code (`cbsa_code` for the Census data, `CBSA` for the school data). We then did an aggregation to count the number of schools per CBSA and stored that data in separate columns.
+
+During integration, we did a bit more data curation. We decided to make the educational attainment data a percentage (between 0 and 1, not out of 100) based on the total population aged 25+ in each CBSA. We also made the number of public/postsecondary schools a percentage, but based on the total population instead.
+
+We felt that making the data a percentage was needed as some CBSAs had a much larger population than others, which had the potential to make our analysis unreliable. This should make the data less sensitive to large outliers.
 
 ## Findings
 
 Before running any of the analysis, we first plotted every variable with every other variable (we will refer to this plot as a pairplot for the remainder of this section). This is the result:
+
+![](/analysis/pairplot.png)
 
 From the plot, we can see that median income does not appear to have a strong relationship with any of the other variables (we can see this from the first row). However, we can see that all of the “post-bachelors” variables (5th row, columns 6-8) have a strong relationship with each other. This indicates potential multicollinearity issues if we use all 9 of the potential explanatory variables in a linear regression model. Out of 4 explanatory variables that are “post-bachelor,” we will likely need to drop 3 of them to mitigate the effect of multicollinearity.
 
